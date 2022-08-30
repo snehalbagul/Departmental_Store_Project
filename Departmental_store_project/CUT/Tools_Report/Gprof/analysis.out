@@ -1,0 +1,89 @@
+Flat profile:
+
+Each sample counts as 0.01 seconds.
+ no time accumulated
+
+  %   cumulative   self              self     total           
+ time   seconds   seconds    calls  Ts/call  Ts/call  name    
+  0.00      0.00     0.00        2     0.00     0.00  dequeue1
+  0.00      0.00     0.00        2     0.00     0.00  getpasswd
+  0.00      0.00     0.00        1     0.00     0.00  add_product
+  0.00      0.00     0.00        1     0.00     0.00  check_Password
+  0.00      0.00     0.00        1     0.00     0.00  create_queue1
+  0.00      0.00     0.00        1     0.00     0.00  create_queues_for_sale
+  0.00      0.00     0.00        1     0.00     0.00  daily_sales_report
+  0.00      0.00     0.00        1     0.00     0.00  delete_product
+  0.00      0.00     0.00        1     0.00     0.00  display1
+  0.00      0.00     0.00        1     0.00     0.00  display_product
+  0.00      0.00     0.00        1     0.00     0.00  edit_product
+  0.00      0.00     0.00        1     0.00     0.00  file_to_product_list
+  0.00      0.00     0.00        1     0.00     0.00  file_to_sales_transaction_list
+  0.00      0.00     0.00        1     0.00     0.00  hotcake
+  0.00      0.00     0.00        1     0.00     0.00  list_to_product_file
+  0.00      0.00     0.00        1     0.00     0.00  list_to_sales_transaction_file
+
+			Call graph
+
+
+granularity: each sample hit covers 2 byte(s) no time propagated
+
+index % time    self  children    called     name
+                0.00    0.00       2/2           start_sale [24]
+[1]      0.0    0.00    0.00       2         dequeue1 [1]
+-----------------------------------------------
+                0.00    0.00       2/2           check_Password [4]
+[2]      0.0    0.00    0.00       2         getpasswd [2]
+-----------------------------------------------
+                0.00    0.00       1/1           main [22]
+[3]      0.0    0.00    0.00       1         add_product [3]
+-----------------------------------------------
+                0.00    0.00       1/1           main [22]
+[4]      0.0    0.00    0.00       1         check_Password [4]
+                0.00    0.00       2/2           getpasswd [2]
+-----------------------------------------------
+                0.00    0.00       1/1           create_queues_for_sale [6]
+[5]      0.0    0.00    0.00       1         create_queue1 [5]
+-----------------------------------------------
+                0.00    0.00       1/1           main [22]
+[6]      0.0    0.00    0.00       1         create_queues_for_sale [6]
+                0.00    0.00       1/1           create_queue1 [5]
+-----------------------------------------------
+                0.00    0.00       1/1           main [22]
+[7]      0.0    0.00    0.00       1         daily_sales_report [7]
+-----------------------------------------------
+                0.00    0.00       1/1           main [22]
+[8]      0.0    0.00    0.00       1         delete_product [8]
+-----------------------------------------------
+                0.00    0.00       1/1           main [22]
+[9]      0.0    0.00    0.00       1         display1 [9]
+-----------------------------------------------
+                0.00    0.00       1/1           main [22]
+[10]     0.0    0.00    0.00       1         display_product [10]
+-----------------------------------------------
+                0.00    0.00       1/1           main [22]
+[11]     0.0    0.00    0.00       1         edit_product [11]
+-----------------------------------------------
+                0.00    0.00       1/1           main [22]
+[12]     0.0    0.00    0.00       1         file_to_product_list [12]
+-----------------------------------------------
+                0.00    0.00       1/1           main [22]
+[13]     0.0    0.00    0.00       1         file_to_sales_transaction_list [13]
+-----------------------------------------------
+                0.00    0.00       1/1           main [22]
+[14]     0.0    0.00    0.00       1         hotcake [14]
+-----------------------------------------------
+                0.00    0.00       1/1           main [22]
+[15]     0.0    0.00    0.00       1         list_to_product_file [15]
+-----------------------------------------------
+                0.00    0.00       1/1           main [22]
+[16]     0.0    0.00    0.00       1         list_to_sales_transaction_file [16]
+-----------------------------------------------
+
+Index by function name
+
+   [3] add_product             [1] dequeue1                [2] getpasswd
+   [4] check_Password          [9] display1               [14] hotcake
+   [5] create_queue1          [10] display_product        [15] list_to_product_file
+   [6] create_queues_for_sale [11] edit_product           [16] list_to_sales_transaction_file
+   [7] daily_sales_report     [12] file_to_product_list
+   [8] delete_product         [13] file_to_sales_transaction_list

@@ -1,0 +1,201 @@
+        -:    0:Source:main.c
+        -:    0:Graph:main.gcno
+        -:    0:Data:main.gcda
+        -:    0:Runs:1
+        -:    1:/*****************************************************************************************************************************************
+        -:    2: ** FILENAME  :  main.c
+        -:    3: **
+        -:    4: ** DESCRIPTION : This File defines the function which send external message for Refer.
+        -:    5: ** 
+        -:    6: ** Revision History :
+        -:    7: ** DATE                         NAME                                         REASON
+        -:    8: ** ---------------------------------------------------------------------------------------
+        -:    9: ** 25 August 2022               Muskan Yadhav                                To make main.c file
+        -:   10: ** 25 August 2022               Snehal Bagul                                 To make changes in file header
+        -:   11: ****************************************************************************************************************************************/
+        -:   12:
+        -:   13:
+        -:   14:#include <stdio.h>
+        -:   15:#include <stdlib.h>
+        -:   16:#include <string.h>
+        -:   17:#include <pthread.h>
+        -:   18:#include <stddef.h>
+        -:   19:#include <ctype.h>
+        -:   20:#include "header.h"
+        -:   21:#include "File_operation_func.c"
+        -:   22:#include "product_file_maintenance_func.c"
+        -:   23:#include "start_sale.c"
+        -:   24:#include "report_corner_func.c"
+        -:   25:#include "create_queue_func.c"
+        -:   26:#include "check_password.c"
+        -:   27:
+function main called 1 returned 100% blocks executed 88%
+        1:   28:int main()
+        -:   29:{
+        1:   30:	start=NULL;            		 //initializing struct pointer pm as NULL........          
+        1:   31:	start1=NULL;                   	//initializing struct pointer st as NULL.......
+        1:   32:	front1=rear1=NULL;
+        1:   33:	file_to_product_list();          //taking all records from product file to product list...
+call    0 returned 1
+        1:   34:	system("read a");
+call    0 returned 1
+        1:   35:	file_to_sales_transaction_list(); //taking all records from sales transaction file to sales transaction list....
+call    0 returned 1
+        -:   36:	int choice1,choice2,choice3;
+        1:   37:	int res_Status=0;
+        1:   38:	choice1=0;
+        -:   39:	pthread_t thread1;
+        -:   40:
+        -:   41:	//Loop for outer menu.....
+       10:   42:	while(choice1!=6)
+branch  0 taken 9
+branch  1 taken 1 (fallthrough)
+        -:   43:	{
+        9:   44:		system("clear");
+call    0 returned 9
+        9:   45:		printf("\n1.Product File Maintenance.\n2.Start Sales\n3.Create Queues for sales\n4.Reports Corner\n5.Display queue\n6.Exit.\n");
+call    0 returned 9
+        9:   46:		printf("Enter your choice-");
+call    0 returned 9
+        9:   47:		scanf("%d",&choice1);
+call    0 returned 9
+        9:   48:		switch(choice1)
+branch  0 taken 1
+branch  1 taken 2
+branch  2 taken 2
+branch  3 taken 2
+branch  4 taken 1
+branch  5 taken 1
+branch  6 taken 0
+        -:   49:		{
+        1:   50:			case 1:
+        1:   51:				res_Status=check_Password();  //function call to check employee password...
+call    0 returned 1
+        1:   52:				if(res_Status==1)
+branch  0 taken 0 (fallthrough)
+branch  1 taken 1
+        -:   53:				{
+    #####:   54:					printf("\nINVALID PASSWORD!!!\n");
+call    0 never executed
+    #####:   55:					return(EXIT_FAILURE);
+        -:   56:
+        -:   57:				}
+        -:   58:				//Loop for submenu.....
+        -:   59:				else{
+        1:   60:					choice2=0;
+        7:   61:					while(choice2!=5)
+branch  0 taken 6
+branch  1 taken 1 (fallthrough)
+        -:   62:					{
+        6:   63:						printf("\n1.Add Product\n2.Edit Product\n3.Delete Product\n4.View Products\n5.Exit\n");
+call    0 returned 6
+        6:   64:						printf("Enter your choice-");
+call    0 returned 6
+        6:   65:						scanf("%d",&choice2);
+call    0 returned 6
+        6:   66:						switch(choice2)
+branch  0 taken 2
+branch  1 taken 1
+branch  2 taken 1
+branch  3 taken 1
+branch  4 taken 1
+branch  5 taken 0
+        -:   67:						{
+        2:   68:							case 1:add_product();//function call to add a product..
+call    0 returned 2
+        2:   69:							       break;
+        1:   70:							case 2:edit_product();//function call to edit or update a record...
+call    0 returned 1
+        1:   71:							       break;
+        1:   72:							case 3:delete_product();//function call to delete a product record...
+call    0 returned 1
+        1:   73:							       break;
+        1:   74:							case 4:display_product();
+call    0 returned 1
+        1:   75:							       break;
+        1:   76:							case 5:break;
+    #####:   77:							default:printf("\nINVALID CHOICE!!!");
+call    0 never executed
+    #####:   78:								break;
+        -:   79:						}
+        -:   80:					}
+        -:   81:				}
+        -:   82:
+        1:   83:				break;
+        -:   84:
+        2:   85:			case 2://USE OF THREAD...
+        2:   86:				pthread_create(&thread1,NULL,start_sale,NULL);
+call    0 returned 2
+        2:   87:				pthread_join(thread1,NULL);
+call    0 returned 2
+        2:   88:				printf("thread run successfully..");
+call    0 returned 2
+        2:   89:				break;
+        -:   90:
+        -:   91:
+        2:   92:			case 3:create_queues_for_sale();   //function call to create two queues based on the age of a customer...
+call    0 returned 2
+        2:   93:			       break;
+        -:   94:
+        -:   95:
+        2:   96:			case 4:
+        -:   97:			       //loop for another sub menu...
+        2:   98:			       choice3=0;
+        8:   99:			       while(choice3!=3)
+branch  0 taken 6
+branch  1 taken 2 (fallthrough)
+        -:  100:			       {
+        6:  101:				       printf("\n1.Sales Day Report\n2.The Hotcake\n3.Exit\n");
+call    0 returned 6
+        6:  102:				       printf("Enter your choice-");
+call    0 returned 6
+        6:  103:				       scanf("%d",&choice3);
+call    0 returned 6
+        6:  104:				       switch(choice3)
+branch  0 taken 3
+branch  1 taken 1
+branch  2 taken 2
+branch  3 taken 0
+        -:  105:				       {
+        3:  106:					       case 1:daily_sales_report(); //function call to display daily sales report...
+call    0 returned 3
+        3:  107:						      break;
+        1:  108:					       case 2:hotcake(); //function call to display the most sale product in a day...
+call    0 returned 1
+        1:  109:						      break;
+        2:  110:					       case 3:break;
+        -:  111:
+    #####:  112:					       default:printf("\nINVALID CHOICE!!!");
+call    0 never executed
+    #####:  113:						       break;
+        -:  114:				       }
+        -:  115:			       }
+        2:  116:			       break;
+        -:  117:
+        1:  118:			case 5:printf("\n----------DISPLAYING QUEUE-------------\n");
+call    0 returned 1
+        1:  119:			       display1();
+call    0 returned 1
+        1:  120:			       break;
+        -:  121:
+        1:  122:			case 6:break;
+    #####:  123:			default:printf("\nINVALID CHOICE!!!");
+call    0 never executed
+    #####:  124:				break;
+        -:  125:		}
+        -:  126:	}
+        1:  127:	if(start)
+branch  0 taken 1 (fallthrough)
+branch  1 taken 0
+        1:  128:		list_to_product_file();      // updating product file...
+call    0 returned 1
+        1:  129:	if(start1)
+branch  0 taken 1 (fallthrough)
+branch  1 taken 0
+        1:  130:		list_to_sales_transaction_file();   //updating sales transaction file...
+call    0 returned 1
+        -:  131:}
+        -:  132:
+        -:  133:
+        -:  134:
+        -:  135:

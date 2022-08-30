@@ -1,0 +1,133 @@
+        -:    0:Source:start_sale.c
+        -:    0:Graph:main.gcno
+        -:    0:Data:main.gcda
+        -:    0:Runs:1
+        -:    1:/**********************************************************************************************************************
+        -:    2: **FUNCTION NAME	:  start_sale
+        -:    3: **
+        -:    4: **DESCRIPTION		:  This function is used to lock a queue so that at a time two	
+        -:    5: **                        person in a queue can buy a product.
+        -:    6: **
+        -:    7: **********************************************************************************************************************/
+        -:    8:#include <stdio.h>
+        -:    9:#include <pthread.h>
+        -:   10:#include <stdlib.h>
+        -:   11:#include<ctype.h>
+        -:   12:#include<string.h>
+        -:   13:#include "header.h"
+        -:   14:
+        -:   15:pthread_mutex_t accum_mutex=PTHREAD_MUTEX_INITIALIZER; 
+        -:   16:
+        -:   17:/**********OPTION2*****START SALE FOR CUSTOMER***********************************/
+        -:   18:
+function start_sale called 2 returned 100% blocks executed 100%
+        2:   19:void *start_sale()
+        -:   20:{
+        -:   21:	// mutex is locked
+        2:   22:	pthread_mutex_lock(&accum_mutex);
+call    0 returned 2
+        -:   23:	//dequeuing the customer from queue for sale
+        2:   24:	dequeue1();
+call    0 returned 2
+        -:   25:
+        2:   26:	dequeue1();
+call    0 returned 2
+        2:   27:	printf("\n------------SALES STARTED--------------\n");
+call    0 returned 2
+        -:   28:	// mutex is unlocked
+        2:   29:	pthread_mutex_unlock(&accum_mutex);
+call    0 returned 2
+        2:   30:	system("read a");
+call    0 returned 2
+        2:   31:	system("clear");
+call    0 returned 2
+        -:   32:
+        2:   33:}
+        -:   34:
+        -:   35:/**************REMOVING CUSTOMER AND ADDING IN QUEUE*****************************/
+        -:   36:
+function dequeue1 called 4 returned 100% blocks executed 71%
+        4:   37:int dequeue1()
+        -:   38:{
+        -:   39:
+        4:   40:	if(!front1)  
+branch  0 taken 2 (fallthrough)
+branch  1 taken 2
+        -:   41:	{  
+        -:   42:		// queue is empty
+        2:   43:		printf("\nUNDERFLOW\n");  
+call    0 returned 2
+        2:   44:		return 0;  
+        -:   45:	} 
+        -:   46:
+        -:   47:
+        -:   48:	//ADDING DATA TO QUEUE3.....
+        -:   49:
+        -:   50:	st *new,*prev,*ptr1;  //creating pointers of struct st type
+        -:   51:	q *temp;              //creating pointers of struct q type    
+        -:   52:
+        2:   53:	new=(st *)calloc(1,sizeof(st)); 
+        2:   54:	if(!new)  
+branch  0 taken 0 (fallthrough)
+branch  1 taken 2
+        -:   55:	{  
+        -:   56:		// memory not allocated for new pointer
+    #####:   57:		printf("\nMemory Not Allocated!!!\n");  
+call    0 never executed
+    #####:   58:		return 0;  
+        -:   59:	}
+        -:   60:
+        2:   61:	new->product_code=front1->product_code;
+        2:   62:	new->unit_sold=front1->units;
+        -:   63:	pm *ptr2;             // creating pointers of struct pm type
+       2*:   64:	for(ptr2=start;(ptr2)&& ptr2->product_code!=new->product_code;ptr2=ptr2->next);
+branch  0 taken 2 (fallthrough)
+branch  1 taken 0
+branch  2 taken 0
+branch  3 taken 2 (fallthrough)
+        2:   65:	if(!ptr2)
+branch  0 taken 0 (fallthrough)
+branch  1 taken 2
+        -:   66:	{
+        -:   67:		//product_code not found
+    #####:   68:		printf("\nProduct not found...");
+call    0 never executed
+    #####:   69:		front1=front1->next;
+    #####:   70:		return 0;
+        -:   71:	}
+        2:   72:	new->total_price=ptr2->product_price*new->unit_sold;
+        2:   73:	ptr2->unit_available=ptr2->unit_available-new->unit_sold;
+        2:   74:	strcpy(new->customer_name,front1->customer_name);
+        -:   75:	//adding customer details to Sales_Transaction list
+        2:   76:	if(!start1)  
+branch  0 taken 1 (fallthrough)
+branch  1 taken 1
+        -:   77:	{   
+        1:   78:		start1= new; 
+        1:   79:		new-> next = NULL;  
+        -:   80:
+        -:   81:	}  
+        1:   82:	else if(new->product_code<start1->product_code)
+branch  0 taken 0 (fallthrough)
+branch  1 taken 1
+        -:   83:	{
+    #####:   84:		new->next=start1;
+    #####:   85:		start1=new;
+        -:   86:	}
+        -:   87:	else
+        -:   88:	{
+       1*:   89:		for(ptr1=start1;(ptr1) && ptr1->product_code<new->product_code;prev=ptr1,ptr1=ptr1->next);  
+branch  0 taken 1 (fallthrough)
+branch  1 taken 0
+branch  2 taken 0
+branch  3 taken 1 (fallthrough)
+        -:   90:
+        1:   91:		prev->next=new; 
+        1:   92:		new->next=ptr1;
+        -:   93:	}
+        -:   94:
+        2:   95:	temp = front1;  
+        2:   96:	front1 = front1-> next;  
+        2:   97:	free(temp);  
+        2:   98:}
+        -:   99:/***************************************************************************************************/

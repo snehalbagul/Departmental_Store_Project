@@ -1,0 +1,113 @@
+product_file_maintenance_func.c:114:49: Comment starts inside comment
+  A comment open sequence (/*) appears within a comment.  This usually means an
+  earlier comment was not closed. (Use -nestcomment to inhibit warning)
+   In file included from main.c:22
+product_file_maintenance_func.c:134:51: Comment starts inside comment
+create_queue_func.c:19:58: Comment starts inside comment
+   In file included from main.c:25
+create_queue_func.c:44:79: Comment starts inside comment
+create_queue_func.c:57:48: Comment starts inside comment
+create_queue_func.c:84:46: Comment starts inside comment
+create_queue_func.c:102:50: Comment starts inside comment
+create_queue_func.c:116:48: Comment starts inside comment
+create_queue_func.c:136:95: Comment starts inside comment
+check_password.c:16: Include file <termios.h> matches the name of a POSIX
+    library, but the POSIX library is not being used.  Consider using +posixlib
+    or +posixstrictlib to select the POSIX library, or -warnposix to suppress
+    this message.
+  Header name matches a POSIX header, but the POSIX library is not selected.
+  (Use -warnposixheaders to inhibit warning)
+< Location unknown >: Field name reused: 
+  Code cannot be parsed.  For help on parse errors, see splint -help
+  parseerrors. (Use -syntax to inhibit warning)
+< Location unknown >: Previous use of 
+File_operation_func.c: (in function file_to_product_list)
+File_operation_func.c:28:8: Possibly null storage new passed as non-null param:
+                               fread (new, ...)
+  A possibly null pointer is passed as a parameter corresponding to a formal
+  parameter with no /*@null@*/ annotation.  If NULL may be used for this
+  parameter, add a /*@null@*/ annotation to the function parameter declaration.
+  (Use -nullpass to inhibit warning)
+   File_operation_func.c:27:6: Storage new may become null
+File_operation_func.c:28:2: Return value (type size_t) ignored:
+                               fread(new, sizeo...
+  Result returned by function call is not used. If this is intended, can cast
+  result to (void) to eliminate message. (Use -retvalother to inhibit warning)
+File_operation_func.c:30:9: Operand of ! is non-boolean (int): !feof(fp)
+  The operand of a boolean operator is not a boolean. Use +ptrnegate to allow !
+  to be used on pointers. (Use -boolops to inhibit warning)
+File_operation_func.c:39:4: Variable last used before definition
+  An rvalue is used that may not be initialized to a value on some execution
+  path. (Use -usedef to inhibit warning)
+File_operation_func.c:39:4: Implicitly only storage last->next (type struct
+    Product_Master *) not released before assignment: last->next = new
+  A memory leak has been detected. Only-qualified storage is not released
+  before the last reference to it is lost. (Use -mustfreeonly to inhibit
+  warning)
+File_operation_func.c:44:9: Possibly null storage new passed as non-null param:
+                               fread (new, ...)
+   File_operation_func.c:43:7: Storage new may become null
+File_operation_func.c:44:3: Return value (type size_t) ignored:
+                               fread(new, sizeo...
+File_operation_func.c: (in function file_to_sales_transaction_list)
+File_operation_func.c:63:8: Possibly null storage new passed as non-null param:
+                               fread (new, ...)
+   File_operation_func.c:62:6: Storage new may become null
+File_operation_func.c:63:2: Return value (type size_t) ignored:
+                               fread(new, sizeo...
+File_operation_func.c:65:9: Operand of ! is non-boolean (int): !feof(fp)
+File_operation_func.c:74:4: Variable last1 used before definition
+File_operation_func.c:74:4: Implicitly only storage last1->next (type struct
+    Sales_Transaction *) not released before assignment: last1->next = new
+File_operation_func.c:79:9: Possibly null storage new passed as non-null param:
+                               fread (new, ...)
+   File_operation_func.c:78:7: Storage new may become null
+File_operation_func.c:79:3: Return value (type size_t) ignored:
+                               fread(new, sizeo...
+File_operation_func.c: (in function list_to_product_file)
+File_operation_func.c:92:27: Possibly null storage fp passed as non-null param:
+                                fwrite (..., fp)
+   File_operation_func.c:89:5: Storage fp may become null
+File_operation_func.c:92:3: Return value (type size_t) ignored:
+                               fwrite(ptr, size...
+File_operation_func.c:94:9: Possibly null storage fp passed as non-null param:
+                               fclose (fp)
+   File_operation_func.c:89:5: Storage fp may become null
+File_operation_func.c:94:2: Return value (type int) ignored: fclose(fp)
+  Result returned by function call is not used. If this is intended, can cast
+  result to (void) to eliminate message. (Use -retvalint to inhibit warning)
+File_operation_func.c: (in function list_to_sales_transaction_file)
+File_operation_func.c:106:27: Possibly null storage fp passed as non-null
+                                 param: fwrite (..., fp)
+   File_operation_func.c:103:5: Storage fp may become null
+File_operation_func.c:106:3: Return value (type size_t) ignored:
+                                fwrite(ptr, size...
+File_operation_func.c:108:9: Possibly null storage fp passed as non-null param:
+                                fclose (fp)
+   File_operation_func.c:103:5: Storage fp may become null
+File_operation_func.c:108:2: Return value (type int) ignored: fclose(fp)
+product_file_maintenance_func.c: (in function add_product)
+product_file_maintenance_func.c:33:9:
+    Test expression for while not boolean, type int: 1
+  Test expression type is not boolean or int. (Use -predboolint to inhibit
+  warning)
+product_file_maintenance_func.c:38:4: Return value (type int) ignored:
+                                         scanf("%d", &new...
+product_file_maintenance_func.c:55:18:
+    Left operand of && is non-boolean (pm *):
+    (ptr) && ptr->product_code != new->product_code
+product_file_maintenance_func.c:66:4: Return value (type int) ignored:
+                                         system("read a")
+product_file_maintenance_func.c:66:4: Unreachable code: system("read a")
+  This code will never be reached on any possible execution. (Use -unreachable
+  to inhibit warning)
+product_file_maintenance_func.c:67:4: Return value (type int) ignored:
+                                         system("clear")
+product_file_maintenance_func.c:73:9:
+    Test expression for while not boolean, type int: 1
+product_file_maintenance_func.c:76:4: Return value (type int) ignored:
+                                         scanf("%s", new-...
+product_file_maintenance_func.c:78:4: Assignment of size_t to int:
+                                         length = strlen(new->product_name)
+  To allow arbitrary integral types to match any integral type, use
+  +matchanyintegral.

@@ -1,0 +1,453 @@
+        -:    0:Source:product_file_maintenance_func.c
+        -:    0:Graph:main.gcno
+        -:    0:Data:main.gcda
+        -:    0:Runs:1
+        -:    1:/****************************************************************************************************************************************
+        -:    2: **FUNCTION NAME   :      product_file_maintenance_func 
+        -:    3: **
+        -:    4: **DESCRIPTION     :      This file enables the employee to add products,edit products and
+        -:    5: **                       delete products from the product master file.
+        -:    6: **
+        -:    7: **RETURNS         :      It returns EXIT_SUCCESS if function is executed successfully 
+        -:    8: **                       or it returns EXIT_FAILURE if function is not executed 
+        -:    9: **                       successfully.
+        -:   10: **
+        -:   11: ***************************************************************************************************************************************/
+        -:   12:
+        -:   13:#include <stdio.h>
+        -:   14:#include <stdlib.h>
+        -:   15:#include <string.h>
+        -:   16:#include <ctype.h>
+        -:   17:#include "header.h"
+        -:   18:
+        -:   19:
+        -:   20://FUNCION TO ADD PRODUCTS....
+        -:   21:
+function add_product called 2 returned 100% blocks executed 70%
+        2:   22:int add_product()
+        -:   23:{
+        -:   24:	//declaring pointer to struct pm type.....
+        -:   25:	pm *new,*ptr,*prev;	
+        2:   26:	new=(pm *)calloc(1,sizeof(pm));
+        2:   27:	if(!new)
+branch  0 taken 0 (fallthrough)
+branch  1 taken 2
+        -:   28:	{
+    #####:   29:		printf("\n------MEMORY NOT ALLOCATED!!!-------\n");
+call    0 never executed
+    #####:   30:		return(EXIT_FAILURE);
+        -:   31:	}
+        -:   32:
+        -:   33:	// VALIDATION FOR PRODUCT CODE.....
+        -:   34:	while(1)
+    #####:   35:	{
+        -:   36:		int temp;
+        2:   37:		int count=0;
+        2:   38:		printf("\nEnter the Product code (max 3 digits):");
+call    0 returned 2
+        2:   39:		scanf("%d",&new->product_code);
+call    0 returned 2
+        2:   40:		temp=new->product_code;
+        -:   41:
+        -:   42:		//...Loop to check number of digits......
+        8:   43:		while(temp!=0)
+branch  0 taken 6
+branch  1 taken 2 (fallthrough)
+        -:   44:		{
+        6:   45:			temp/=10;
+        6:   46:			count++;
+        -:   47:		}
+        -:   48:
+        -:   49:		//...checks if product code is of three digit or not.....
+        2:   50:		if(count>4)       
+branch  0 taken 0 (fallthrough)
+branch  1 taken 2
+        -:   51:		{
+    #####:   52:			printf("\nProduct code should be only 3 digits.");
+call    0 never executed
+    #####:   53:			continue;
+        -:   54:		}
+        -:   55:		//loop to find duplicate product code using pointer ptr.....
+        3:   56:		for(ptr=start;(ptr) && ptr->product_code!=new->product_code;ptr=ptr->next); 
+branch  0 taken 1 (fallthrough)
+branch  1 taken 2
+branch  2 taken 1
+branch  3 taken 0 (fallthrough)
+        -:   57:		//product code already exists....
+        2:   58:		if(ptr)               
+branch  0 taken 0 (fallthrough)
+branch  1 taken 2
+        -:   59:		{
+    #####:   60:			printf("\n %d Product code is duplicate\n",new->product_code);
+call    0 never executed
+    #####:   61:			continue;
+        -:   62:		}
+        -:   63:		else
+        -:   64:		{
+        2:   65:			break;
+        -:   66:		}
+        -:   67:		system("read a");
+        -:   68:		system("clear");
+        -:   69:	}
+        -:   70:
+        -:   71:
+        -:   72:	//VALIDATION FOR PRODUCT NAME......
+        -:   73:
+        -:   74:	while(1)
+    #####:   75:	{
+        2:   76:		printf("\nEnter Product name (min 5 and max 30 characters):");
+call    0 returned 2
+        2:   77:		scanf("%s",new->product_name);
+call    0 returned 2
+        -:   78:		int length;
+        2:   79:		length=strlen(new->product_name);
+        -:   80:
+        -:   81:		//checking number of characters in product name......     
+        2:   82:		if(length<5 || length>30)      
+branch  0 taken 2 (fallthrough)
+branch  1 taken 0
+branch  2 taken 0 (fallthrough)
+branch  3 taken 2
+        -:   83:		{
+    #####:   84:			printf("Product name out of range!!\n");
+call    0 never executed
+    #####:   85:			continue;
+        -:   86:		}
+        2:   87:		int flag=0;
+        -:   88:
+        -:   89:		//loop to traverse characters in product name
+       13:   90:		for(int i=0;new->product_name[i]!='\0';i++)
+branch  0 taken 11
+branch  1 taken 2 (fallthrough)
+        -:   91:		{
+        -:   92:
+        -:   93:			//checks character is alphabet or not.....
+       11:   94:			if(!isalpha(new->product_name[i])) 
+branch  0 taken 0 (fallthrough)
+branch  1 taken 11
+        -:   95:			{
+    #####:   96:				flag=1;
+    #####:   97:				break;
+        -:   98:			}
+        -:   99:
+        -:  100:		} 
+        -:  101:		// Product name contain character other than alphabets
+        2:  102:		if(flag==1)
+branch  0 taken 0 (fallthrough)
+branch  1 taken 2
+        -:  103:		{
+    #####:  104:			printf("Product name should only contain alphabets\n");
+call    0 never executed
+    #####:  105:			continue;
+        -:  106:		}
+        -:  107:		else
+        -:  108:		{
+        2:  109:			break;
+        -:  110:		}
+        -:  111:		system("read a");
+        -:  112:		system("clear");
+        -:  113:
+        -:  114:	}
+        -:  115:
+        -:  116:	//*********VALIDATION FOR PRODUCT PRICE.......
+        -:  117:
+        -:  118:	while(1)
+        -:  119:	{
+        2:  120:		printf("\nEnter Product price-");
+call    0 returned 2
+        2:  121:		scanf("%lf",&new->product_price);
+call    0 returned 2
+        -:  122:		//checking productprice is in range or not.....
+        2:  123:		if(new->product_price<1 || new->product_price>10000)
+branch  0 taken 2 (fallthrough)
+branch  1 taken 0
+branch  2 taken 0 (fallthrough)
+branch  3 taken 2
+        -:  124:		{
+    #####:  125:			printf("\nINVALID RANGE OF PRICE!!!");
+call    0 never executed
+    #####:  126:			continue;
+        -:  127:		}
+        -:  128:		else
+        -:  129:		{
+        -:  130:			break;
+        -:  131:		}
+        -:  132:		system("read a");
+        -:  133:		system("clear");
+        -:  134:	}
+        -:  135:
+        -:  136:	//**********VALIDATION FOR UNITS AVAILABLE......
+        -:  137:
+        -:  138:	while(1)
+        -:  139:	{
+        2:  140:		printf("\nEnter units available (min 1 and max 50 units):");
+call    0 returned 2
+        2:  141:		scanf("%d",&new->unit_available);
+call    0 returned 2
+        -:  142:
+        -:  143:		//check unit available should be in range one to fifty.....
+        2:  144:		if(new->unit_available <1 ||  new->unit_available>50)
+branch  0 taken 2 (fallthrough)
+branch  1 taken 0
+branch  2 taken 0 (fallthrough)
+branch  3 taken 2
+        -:  145:
+        -:  146:		{
+    #####:  147:			printf("\n INVALID UNITS");
+call    0 never executed
+    #####:  148:			continue;
+        -:  149:		}
+        -:  150:		else
+        -:  151:		{
+        -:  152:			break;
+        -:  153:		}
+        -:  154:		system("read a");
+        -:  155:		system("clear");
+        -:  156:	}
+        -:  157:
+        -:  158:	//VALIDATION FOR ZONE CODE
+        -:  159:
+        -:  160:	while(1)
+        -:  161:	{
+        2:  162:		printf("\nEnter the zone code of the product (X,Y,Z):");
+call    0 returned 2
+        2:  163:		scanf("%s",&new->zone_code);
+call    0 returned 2
+        2:  164:		fflush(stdin);
+call    0 returned 2
+       2*:  165:		if(new->zone_code==' ' ||( new->zone_code!='X' && new->zone_code!='Y' && new->zone_code!='Z'))
+branch  0 taken 2 (fallthrough)
+branch  1 taken 0
+branch  2 taken 1 (fallthrough)
+branch  3 taken 1
+branch  4 taken 0 (fallthrough)
+branch  5 taken 1
+branch  6 never executed
+branch  7 never executed
+        -:  166:		{
+        -:  167:			// zone code is invalid
+    #####:  168:			printf("\n INVALID ZONE CODE!!!\n");
+call    0 never executed
+    #####:  169:			continue;
+        -:  170:		}
+        -:  171:		else
+        -:  172:		{
+        -:  173:			break;
+        -:  174:		}
+        -:  175:		system("read a");
+        -:  176:		system("clear");
+        -:  177:	}
+        -:  178:
+        -:  179:
+        -:  180:	// ENTERING DATA...........................
+        -:  181:
+        -:  182:	//condition to insert first element....
+        2:  183:	if(!start) 
+branch  0 taken 1 (fallthrough)
+branch  1 taken 1
+        -:  184:	{
+        1:  185:		start=new;
+        1:  186:		new->next=NULL;
+        -:  187:	}
+        -:  188:
+        -:  189:	//condition used when list has already one element....
+        1:  190:	else if(new->product_code<start->product_code)
+branch  0 taken 0 (fallthrough)
+branch  1 taken 1
+        -:  191:
+        -:  192:	{
+    #####:  193:		new->next=start;
+    #####:  194:		start=new;
+        -:  195:	}
+        -:  196:	else
+        -:  197:	{
+        2:  198:		for(ptr=start;(ptr) && ptr->product_code<new->product_code;prev=ptr,ptr=ptr->next);
+branch  0 taken 1 (fallthrough)
+branch  1 taken 1
+branch  2 taken 1
+branch  3 taken 0 (fallthrough)
+        1:  199:		prev->next=new;
+        1:  200:		new->next=ptr;
+        -:  201:	}
+        2:  202:	printf("\n************************Records added successfully*********************\n");
+call    0 returned 2
+        2:  203:	return(EXIT_SUCCESS);
+        -:  204:
+        -:  205:}
+        -:  206:
+        -:  207://FUCNTION TO VIEW PRODUCT DETAILS.....
+function view_product called 0 returned 0% blocks executed 0%
+    #####:  208:int view_product()
+        -:  209:{
+    #####:  210:	if(start)
+branch  0 never executed
+branch  1 never executed
+        -:  211:	{
+    #####:  212:		printf("\n---PRODUCT CODE      PRODUCT NAME    PRODUCT PRICE    UNIT AVAILABLE    ZONE CODE---"); 
+call    0 never executed
+    #####:  213:		for(pm *ptr=start;(ptr);ptr=ptr->next)
+branch  0 never executed
+branch  1 never executed
+        -:  214:		{
+        -:  215:
+    #####:  216:			printf("\n %5d %20s            %7.2lf      %10d       %10c",ptr->product_code,ptr->product_name,ptr->product_price,ptr->unit_available,ptr->zone_code);
+call    0 never executed
+        -:  217:		}
+        -:  218:	}
+    #####:  219:}
+        -:  220:
+        -:  221:
+        -:  222:/***********************FUNCTION TO EDIT PRODUCTS**************************/
+        -:  223:
+function edit_product called 1 returned 100% blocks executed 81%
+        1:  224:int edit_product()
+        -:  225:{
+        -:  226:	// declaring pointer of pm type
+        -:  227:	pm *new,*ptr,*prev;
+        1:  228:	if(!start)
+branch  0 taken 0 (fallthrough)
+branch  1 taken 1
+        -:  229:		//Product_Master file is empty
+        -:  230:	{
+    #####:  231:		printf("\nEMPTY FILE!!!\n");
+call    0 never executed
+    #####:  232:		return(EXIT_FAILURE);
+        -:  233:	}
+        -:  234:	int new_product_code;
+        1:  235:	printf("\nEnter product code to edit record:"); // Entering product code to edit
+call    0 returned 1
+        1:  236:	scanf("%d",&new_product_code);
+call    0 returned 1
+        2:  237:	for(ptr=start;(ptr)&&ptr->product_code!=new_product_code;ptr=ptr->next);
+branch  0 taken 2 (fallthrough)
+branch  1 taken 0
+branch  2 taken 1
+branch  3 taken 1 (fallthrough)
+        1:  238:	if(ptr==NULL)
+branch  0 taken 0 (fallthrough)
+branch  1 taken 1
+        -:  239:	{  
+        -:  240:		// Product code not found
+    #####:  241:		printf("\nProduct code %d not found",new_product_code);
+call    0 never executed
+    #####:  242:		return(EXIT_FAILURE);
+        -:  243:	}
+        -:  244:	else
+        -:  245:	{
+        -:  246:		//Product code is found
+        -:  247:		// Old product information to that product code
+        1:  248:		printf("\nprevious prodcut details are:\n %d %s %d %c",ptr->product_code,ptr->product_name,ptr->unit_available,ptr->zone_code);
+call    0 returned 1
+        1:  249:		printf("\nEnter product name,units available,zone code:");
+call    0 returned 1
+        -:  250:		//Editing product information to that product code
+        1:  251:		scanf("%s %d %c",ptr->product_name,&ptr->unit_available,&ptr->zone_code);
+call    0 returned 1
+        1:  252:		printf("\n***********************RECORDS EDITED SUCCESSFULLY********************\n");
+call    0 returned 1
+        -:  253:	}
+        1:  254:	system("read a");
+call    0 returned 1
+        -:  255:	//to clear screen
+        1:  256:	system("clear");
+call    0 returned 1
+        1:  257:	return(EXIT_SUCCESS);
+        -:  258:}
+        -:  259:
+        -:  260:
+        -:  261:
+        -:  262://**********************FUNCTION TO DELETE PRODUCT************************/
+        -:  263:
+function delete_product called 1 returned 100% blocks executed 52%
+        1:  264:int delete_product()
+        -:  265:{
+        -:  266:	//creating pointer of pm type
+        -:  267:	pm *new,*ptr,*prev;
+        1:  268:	if(!start)
+branch  0 taken 0 (fallthrough)
+branch  1 taken 1
+        -:  269:	{ 
+        -:  270:		//Product_Master file is empty
+    #####:  271:		printf("\nEmpty file\n");
+call    0 never executed
+    #####:  272:		return(EXIT_FAILURE);
+        -:  273:	}
+        -:  274:	int new_product_code;
+        1:  275:	printf("\nEnter the product code whose record you want to delete:");
+call    0 returned 1
+        1:  276:	scanf("%d",&new_product_code);
+call    0 returned 1
+        1:  277:	if(new_product_code==start->product_code)
+branch  0 taken 1 (fallthrough)
+branch  1 taken 0
+        -:  278:	{ 
+        -:  279:		//When product code to delete matches with first record of list
+        1:  280:		ptr=start;
+        1:  281:		start=start->next;
+        1:  282:		free(ptr);
+        -:  283:	}
+        -:  284:	else
+        -:  285:	{ 
+        -:  286:		// Traversing through list to search product_code
+    #####:  287:		for(ptr=start;(ptr)&&ptr->product_code!=new_product_code;prev=ptr,ptr=ptr->next);
+branch  0 never executed
+branch  1 never executed
+branch  2 never executed
+branch  3 never executed
+    #####:  288:		if(ptr==NULL)
+branch  0 never executed
+branch  1 never executed
+        -:  289:		{
+        -:  290:			// product_code not found
+    #####:  291:			printf("\n%dProduct code not found\n",new_product_code);
+call    0 never executed
+    #####:  292:			return(EXIT_FAILURE);
+        -:  293:		}
+        -:  294:		// Deleting product record to that product_code
+    #####:  295:		prev->next=ptr->next;
+        -:  296:		// Releasing memory that is dynamically allocated
+    #####:  297:		free(ptr);
+        -:  298:	}
+        1:  299:	printf("\n*******************Record deleted*******************\n");
+call    0 returned 1
+        1:  300:	system("read a");
+call    0 returned 1
+        -:  301:	// Clearing the screen
+        1:  302:	system("clear");
+call    0 returned 1
+        1:  303:	return(EXIT_SUCCESS);
+        -:  304:
+        -:  305:}
+        -:  306:
+        -:  307:/*************************DISPLAY PRODUCT RECORDS*****************************/
+        -:  308:
+function display_product called 1 returned 100% blocks executed 83%
+        1:  309:int display_product()
+        -:  310:{
+        -:  311:	pm *ptr;
+        1:  312:	if(!start)
+branch  0 taken 0 (fallthrough)
+branch  1 taken 1
+        -:  313:	{
+    #####:  314:		printf("\nEMPTY LIST!!!\n");
+call    0 never executed
+    #####:  315:		return(EXIT_FAILURE);
+        -:  316:	}
+        1:  317:	printf("\n------------------------------------------------------------\n");
+call    0 returned 1
+        1:  318:	printf("\nPRODUCT CODE     PRODUCT NAME  PRODUCT PRICE  UNIT AVAILABLE\n");
+call    0 returned 1
+        2:  319:	for(ptr=start;(ptr);ptr=ptr->next)
+branch  0 taken 1
+branch  1 taken 1 (fallthrough)
+        -:  320:	{
+        1:  321:		printf("\n%4d   %20s    %7.2lf       %5d\n",ptr->product_code,ptr->product_name,ptr->product_price,ptr->unit_available);
+call    0 returned 1
+        -:  322:	}
+        1:  323:	printf("\n------------------------------------------------------------\n");
+call    0 returned 1
+        1:  324:	return(EXIT_SUCCESS);
+        -:  325:}	
+        -:  326:
+        -:  327:
+        -:  328:/*****************************************************************************/

@@ -1,0 +1,163 @@
+        -:    0:Source:File_operation_func.c
+        -:    0:Graph:main.gcno
+        -:    0:Data:main.gcda
+        -:    0:Runs:1
+        -:    1:/**********************************************************************************************************************************
+        -:    2: **FUNCTION NAME    :   File_operation_func
+        -:    3: **
+        -:    4: **DESCRIPTION      :	This file is used to get records from PRODUCT MASTER and SALES
+        -:    5:                        TRANSACTION File and put the records from list to file.
+        -:    6: **
+        -:    7: **
+        -:    8: **
+        -:    9: **RETURNS	   :    It returns a SUCCESS OR FAILURE status.
+        -:   10: *
+        -:   11: **
+        -:   12: ***********************************************************************************************************************************/
+        -:   13:
+        -:   14:#include<stdio.h>
+        -:   15:#include<stdlib.h>
+        -:   16:#include<string.h>
+        -:   17:#include "header.h"
+        -:   18:
+        -:   19:/**********************GETTING RECORDS FROM PRODUCT MASTER FILE IN LIST*****************/
+        -:   20:
+function file_to_product_list called 1 returned 100% blocks executed 36%
+        1:   21:int file_to_product_list()
+        -:   22:{
+        -:   23:	pm *new,*last;
+        -:   24:	FILE *fp;
+        1:   25:	if((fp=fopen("Product_Master","rb"))==NULL)
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0
+        -:   26:	{
+        1:   27:		printf("Product master cannot be opened");
+call    0 returned 1
+        1:   28:		return(EXIT_FAILURE);
+        -:   29:	}
+    #####:   30:	new=(pm *)calloc(1,sizeof(pm));
+    #####:   31:	fread(new,sizeof(pm),1,fp);
+call    0 never executed
+        -:   32:
+    #####:   33:	while(!feof(fp))
+call    0 never executed
+branch  1 never executed
+branch  2 never executed
+        -:   34:	{
+    #####:   35:		if(!start)
+branch  0 never executed
+branch  1 never executed
+        -:   36:		{
+    #####:   37:			start=last=new;
+    #####:   38:			new->next=NULL;
+        -:   39:		}
+        -:   40:		else
+        -:   41:		{
+    #####:   42:			last->next=new;
+    #####:   43:			last=new;
+    #####:   44:			new->next=NULL;
+        -:   45:		}
+    #####:   46:		new=(pm *)calloc(1,sizeof(pm));
+    #####:   47:		fread(new,sizeof(pm),1,fp);
+call    0 never executed
+        -:   48:	}
+    #####:   49:	free(new);
+    #####:   50:	return(EXIT_FAILURE);
+        -:   51:}
+        -:   52:
+        -:   53:
+        -:   54:
+        -:   55:/***************************GETTING RECORDS FROM TRANSACTION FILE TO LIST****************/
+        -:   56:
+        -:   57:
+function file_to_sales_transaction_list called 1 returned 100% blocks executed 36%
+        1:   58:int file_to_sales_transaction_list()
+        -:   59:{
+        -:   60:	st *new,*last1;
+        -:   61:	FILE *fp;
+        1:   62:	if((fp=fopen("Sales_Transaction","rb"))==NULL)
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0
+        -:   63:	{
+        1:   64:		printf("sales transaction cannot be opened");
+call    0 returned 1
+        1:   65:		return(EXIT_FAILURE);
+        -:   66:	}
+    #####:   67:	new=(st *)calloc(1,sizeof(st));
+    #####:   68:	fread(new,sizeof(st),1,fp);
+call    0 never executed
+        -:   69:
+    #####:   70:	while(!feof(fp))
+call    0 never executed
+branch  1 never executed
+branch  2 never executed
+        -:   71:	{
+    #####:   72:		if(!start1)
+branch  0 never executed
+branch  1 never executed
+        -:   73:		{
+    #####:   74:			start1=last1=new;
+    #####:   75:			new->next=NULL;
+        -:   76:		}
+        -:   77:		else
+        -:   78:		{
+    #####:   79:			last1->next=new;
+    #####:   80:			last1=new;
+    #####:   81:			new->next=NULL;
+        -:   82:		}
+    #####:   83:		new=(st *)calloc(1,sizeof(st));
+    #####:   84:		fread(new,sizeof(st),1,fp);
+call    0 never executed
+        -:   85:	}
+    #####:   86:	free(new);
+    #####:   87:	return(EXIT_FAILURE);
+        -:   88:}
+        -:   89:
+        -:   90:
+        -:   91:/***************************GETTING RECORDS FROM LIST AND ADDING IT TO FILE**************/
+        -:   92:
+function list_to_product_file called 1 returned 100% blocks executed 100%
+        1:   93:int list_to_product_file()
+        -:   94:{
+        -:   95:	pm *ptr;
+        -:   96:	FILE *fp;
+        1:   97:	fp=fopen("Product_Master","wb");
+call    0 returned 1
+        2:   98:	for(ptr=start;(ptr);ptr=ptr->next)
+branch  0 taken 1
+branch  1 taken 1 (fallthrough)
+        -:   99:	{
+        1:  100:		fwrite(ptr,sizeof(pm),1,fp);
+call    0 returned 1
+        -:  101:	}
+        1:  102:	fclose(fp);
+call    0 returned 1
+        1:  103:	return(EXIT_FAILURE);
+        -:  104:}
+        -:  105:
+        -:  106:
+        -:  107:/***************************GETTING DATA FROM LIST AND ADDING THEM TO TRANSACTION FILE********/
+        -:  108:
+function list_to_sales_transaction_file called 1 returned 100% blocks executed 100%
+        1:  109:int list_to_sales_transaction_file()
+        -:  110:{
+        -:  111:	st *ptr;
+        -:  112:	FILE *fp;
+        1:  113:	fp=fopen("Sales_Transaction","wb");
+call    0 returned 1
+        2:  114:	for(ptr=start1;(ptr);ptr=ptr->next)
+branch  0 taken 1
+branch  1 taken 1 (fallthrough)
+        -:  115:	{
+        1:  116:		fwrite(ptr,sizeof(st),1,fp);
+call    0 returned 1
+        -:  117:	}
+        1:  118:	fclose(fp);
+call    0 returned 1
+        1:  119:	return(EXIT_FAILURE);
+        -:  120:}
+        -:  121:
+        -:  122:/********************************************************************************************/
+        -:  123:

@@ -1,0 +1,90 @@
+        -:    0:Source:report_corner_func.c
+        -:    0:Graph:main.gcno
+        -:    0:Data:main.gcda
+        -:    0:Runs:1
+        -:    1:/**************************************************************************************************************
+        -:    2: **FUNCTION NAME   :  report_corner_func
+        -:    3: **
+        -:    4: **DESCRIPTION     :  This function is used to display the daily sales report and maximum
+        -:    5: **                   units sold in a day.
+        -:    6: **
+        -:    7: **RETURNS         :  It returns EXIT_SUCCESS on successfull execution and EXIT_FAILURE 
+        -:    8: **                   on insuccessfull execution.
+        -:    9: **
+        -:   10: ***************************************************************************************************************/
+        -:   11:
+        -:   12:
+        -:   13:
+        -:   14:
+        -:   15:#include <stdio.h>
+        -:   16:#include <stdlib.h>
+        -:   17:#include <string.h>
+        -:   18:#include <ctype.h>
+        -:   19:#include "header.h"
+        -:   20:
+        -:   21:
+        -:   22:/**********************************DISPLAYING DAILY SALES REPORT****************************/
+        -:   23:
+function daily_sales_report called 3 returned 100% blocks executed 83%
+        3:   24:int daily_sales_report()
+        -:   25:{
+        -:   26:	st *ptr;
+        3:   27:	if(!start1)
+branch  0 taken 0 (fallthrough)
+branch  1 taken 3
+        -:   28:	{
+    #####:   29:		printf("\nEMPTY LIST!!!");
+call    0 never executed
+    #####:   30:		return(EXIT_FAILURE);
+        -:   31:	}
+        3:   32:	printf("\nPRODUCT CODE         CUSTOMER NAME       UNIT_SOLD         TOTAL PRICE\n");
+call    0 returned 3
+        3:   33:	double total_day_price=0;
+        3:   34:	int total_unit_sold=0;
+        6:   35:	for(ptr=start1;(ptr);ptr=ptr->next)
+branch  0 taken 3
+branch  1 taken 3 (fallthrough)
+        -:   36:	{
+        3:   37:		printf("\n%5d     %20s          %5d                %7.2lf\n",ptr->product_code,ptr->customer_name,ptr->unit_sold,ptr->total_price);
+call    0 returned 3
+        3:   38:		total_day_price+=ptr->total_price;
+        3:   39:		total_unit_sold+=ptr->unit_sold;
+        -:   40:	}
+        3:   41:	printf("\nTOTAL DAY PRICE - %lf ",total_day_price);
+call    0 returned 3
+        3:   42:	printf("\nTOTAL UNIT SOLD - %d ",total_unit_sold);
+call    0 returned 3
+        3:   43:	return(EXIT_SUCCESS);
+        -:   44:}
+        -:   45:
+        -:   46:
+        -:   47:/****************************DISPLAYING THE HOTCAKE REPORT*****************************************/
+function hotcake called 1 returned 100% blocks executed 73%
+        1:   48:int hotcake()
+        -:   49:{
+        -:   50:	st *ptr;
+        1:   51:	if(!start1)
+branch  0 taken 0 (fallthrough)
+branch  1 taken 1
+        -:   52:	{
+    #####:   53:		printf("\nEMPTY LIST!!!");
+call    0 never executed
+    #####:   54:		return(EXIT_FAILURE);
+        -:   55:	}
+        1:   56:	int max_unit_sold=start1->unit_sold;
+        2:   57:	for(ptr=start1;(ptr);ptr=ptr->next)
+branch  0 taken 1
+branch  1 taken 1 (fallthrough)
+        -:   58:	{
+        1:   59:		if(ptr->unit_sold>max_unit_sold)
+branch  0 taken 0 (fallthrough)
+branch  1 taken 1
+        -:   60:		{
+    #####:   61:			max_unit_sold=ptr->unit_sold;
+        -:   62:		}
+        -:   63:	}
+        1:   64:	printf("\nTHE MAXIMUM UNIT SOLD IS--- %d\n",max_unit_sold);
+call    0 returned 1
+        1:   65:	return(EXIT_SUCCESS);
+        -:   66:}
+        -:   67:/********************************************************************************/
